@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM App - Activation Requise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Page d'activation */
+        #activationPage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .activation-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .lock-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .info-box {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .info-box p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .whatsapp-contact {
+            background: #25D366;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .input-group {
+            margin: 25px 0;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: #dc3545;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .success-message {
+            color: #28a745;
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* Application principale */
+        #mainApp {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .app-header {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .license-info h2 {
+            color: #667eea;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .license-status {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .license-expiry {
+            background: #fff3cd;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin-top: 8px;
+            border-left: 3px solid #ffc107;
+            font-size: 13px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .load-btn {
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Zone de chargement */
+        .load-section {
+            background: white;
+            margin: 20px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .load-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .load-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .load-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .load-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .load-card .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .load-card h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .load-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .url-input-section {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .url-input-section input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .file-input-section {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .file-input-label:hover {
+            background: #5568d3;
+        }
+
+        /* Zone de quiz */
+        .quiz-container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            display: none;
+        }
+
+        .quiz-info {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .quiz-title {
+            font-size: 22px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .quiz-progress {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .score-display {
+            background: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .question-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .question-number {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 20px;
+            color: #333;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .options-container {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .option {
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .option:hover {
+            background: #f8f9fa;
+            border-color: #667eea;
+        }
+
+        .option-letter {
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .option-text {
+            flex: 1;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .option.selected {
+            background: #e3f2fd;
+            border-color: #2196F3;
+        }
+
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .explanation-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .explanation-box.show {
+            display: block;
+        }
+
+        .explanation-box h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .explanation-box p {
+            color: #856404;
+            line-height: 1.6;
+        }
+
+        .quiz-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .quiz-btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .quiz-btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .quiz-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .quiz-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Résultats finaux */
+        .results-container {
+            background: white;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            display: none;
+        }
+
+        .results-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .results-title {
+            font-size: 32px;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .results-score {
+            font-size: 48px;
+            font-weight: bold;
+            color: #28a745;
+            margin: 20px 0;
+        }
+
+        .results-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .results-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .results-stat:last-child {
+            border-bottom: none;
+        }
+
+        .results-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .app-header {
+                text-align: center;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .quiz-info {
+                text-align: center;
+            }
+
+            .quiz-progress {
+                flex-direction: column;
+            }
+
+            .quiz-actions {
+                flex-direction: column;
+            }
+
+            .quiz-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page d'activation -->
+    <div id="activationPage">
+        <div class="activation-container">
+            <div class="lock-icon">🔐</div>
+            <h1>Activation de l'Application QCM</h1>
+            
+            <div class="info-box">
+                <p><strong>Cette application nécessite une clé d'activation valide.</strong></p>
+                <p>Pour obtenir votre clé, contactez-nous via WhatsApp au numéro ci-dessous.</p>
+            </div>
+
+            <div class="whatsapp-contact">
+                📱 +22656626261
+            </div>
+
+            <div class="info-box">
+                <p><strong>Formules disponibles :</strong></p>
+                <p>✅ Licence 1 Mois</p>
+                <p>✅ Licence 3 Mois</p>
+                <p>✅ Licence 1 An</p>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="licenseKey" placeholder="Entrez votre clé d'activation" maxlength="50">
+            </div>
+
+            <button class="btn" onclick="validateLicense()">🚀 Activer l'Application</button>
+
+            <div class="error-message" id="errorMessage">❌ Clé invalide ou expirée</div>
+            <div class="success-message" id="successMessage">✅ Activation réussie!</div>
+        </div>
+    </div>
+
+    <!-- Application principale -->
+    <div id="mainApp">
+        <div class="app-header">
+            <div class="license-info">
+                <h2>📚 QCM Application</h2>
+                <div class="license-status">Licence active</div>
+                <div class="license-expiry">
+                    ⏱️ Expire le: <strong id="expiryDate"></strong>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="load-btn" onclick="showLoadSection()">📂 Charger QCM</button>
+                <button class="logout-btn" onclick="logout()">🚪 Déconnexion</button>
+            </div>
+        </div>
+
+        <!-- Section de chargement -->
+        <div class="load-section" id="loadSection">
+            <h3>📥 Charger vos questions QCM</h3>
+            <p>Choisissez une source pour importer vos questions</p>
+
+            <div class="load-options">
+                <div class="load-card" onclick="showUrlInput()">
+                    <div class="icon">🌐</div>
+                    <h4>URL en ligne</h4>
+                    <p>Charger depuis une URL JSON</p>
+                </div>
+
+                <div class="load-card" onclick="showFileInput()">
+                    <div class="icon">📁</div>
+                    <h4>Fichier local</h4>
+                    <p>Importer un fichier JSON</p>
+                </div>
+            </div>
+
+            <!-- Input URL -->
+            <div class="url-input-section" id="urlInputSection">
+                <h4 style="color: #667eea; margin-bottom: 10px;">Entrez l'URL du fichier JSON</h4>
+                <input type="text" id="jsonUrl" placeholder="https://example.com/questions.json">
+                <button class="btn" onclick="loadFromUrl()">📥 Charger depuis URL</button>
+            </div>
+
+            <!-- Input Fichier -->
+            <div class="file-input-section" id="fileInputSection">
+                <h4 style="color: #667eea; margin-bottom: 10px;">Sélectionnez un fichier JSON</h4>
+                <div class="file-input-wrapper">
+                    <input type="file" id="jsonFile" accept=".json" onchange="loadFromFile(event)">
+                    <label for="jsonFile" class="file-input-label">
+                        📂 Parcourir et sélectionner un fichier
+                    </label>
+                </div>
+                <p style="margin-top: 10px; color: #666; font-size: 14px;">Format JSON requis</p>
+            </div>
+        </div>
+
+        <!-- Section Quiz -->
+        <div class="quiz-container" id="quizContainer">
+            <div class="quiz-info">
+                <div class="quiz-title" id="quizTitle">Quiz chargé</div>
+                <div class="quiz-progress">
+                    <div>Question <strong id="currentQuestion">1</strong> / <strong id="totalQuestions">10</strong></div>
+                    <div class="score-display">Score: <span id="currentScore">0</span></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-header">
+                    <span class="question-number" id="questionNumber">Question 1</span>
+                </div>
+
+                <div class="question-text" id="questionText">
+                    Chargement de la question...
+                </div>
+
+                <div class="options-container" id="optionsContainer">
+                    <!-- Options seront générées dynamiquement -->
+                </div>
+
+                <div class="explanation-box" id="explanationBox">
+                    <h4>💡 Explication</h4>
+                    <p id="explanationText"></p>
+                </div>
+
+                <div class="quiz-actions">
+                    <button class="quiz-btn quiz-btn-secondary" onclick="previousQuestion()" id="prevBtn">⬅️ Précédent</button>
+                    <button class="quiz-btn quiz-btn-primary" onclick="nextQuestion()" id="nextBtn" disabled>Suivant ➡️</button>
+                    <button class="quiz-btn quiz-btn-primary" onclick="finishQuiz()" id="finishBtn" style="display: none;">🏁 Terminer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Résultats finaux -->
+        <div class="results-container" id="resultsContainer">
+            <div class="results-icon" id="resultsIcon">🎉</div>
+            <h2 class="results-title">Quiz Terminé !</h2>
+            <div class="results-score">
+                <span id="finalScore">0</span> / <span id="finalTotal">0</span>
+            </div>
+            <div class="results-details">
+                <div class="results-stat">
+                    <span>Bonnes réponses</span>
+                    <strong id="correctAnswers">0</strong>
+                </div>
+                <div class="results-stat">
+                    <span>Mauvaises réponses</span>
+                    <strong id="incorrectAnswers">0</strong>
+                </div>
+                <div class="results-stat">
+                    <span>Pourcentage</span>
+                    <strong id="percentage">0%</strong>
+                </div>
+            </div>
+            <div class="results-actions">
+                <button class="btn" onclick="restartQuiz()">🔄 Recommencer</button>
+                <button class="btn" onclick="loadNewQuiz()" style="background: #28a745;">📂 Nouveau QCM</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedAnswer = null;
+        let answered = false;
+
+        // Validation de la licence
+        function validateLicense() {
+            const keyInput = document.getElementById('licenseKey').value.trim().toUpperCase();
+            const errorMsg = document.getElementById('errorMessage');
+            const successMsg = document.getElementById('successMessage');
+
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+
+            if (!keyInput) {
+                errorMsg.textContent = '❌ Veuillez entrer une clé d\'activation';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            const validKeys = JSON.parse(localStorage.getItem('validKeys') || '[]');
+            const keyData = validKeys.find(k => k.key === keyInput);
+
+            if (keyData) {
+                const expiryDate = new Date(keyData.expiryDate);
+                const now = new Date();
+
+                if (now > expiryDate) {
+                    errorMsg.textContent = '❌ Cette clé a expiré';
+                    errorMsg.style.display = 'block';
+                    return;
+                }
+
+                successMsg.style.display = 'block';
+                
+                localStorage.setItem('activeSession', JSON.stringify({
+                    key: keyInput,
+                    activatedDate: now.toISOString(),
+                    expiryDate: keyData.expiryDate,
+                    duration: keyData.duration
+                }));
+
+                setTimeout(() => {
+                    showMainApp();
+                }, 1000);
+            } else {
+                errorMsg.textContent = '❌ Clé invalide ou non trouvée';
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        function showMainApp() {
+            const session = JSON.parse(localStorage.getItem('activeSession'));
+            
+            if (session) {
+                const expiryDate = new Date(session.expiryDate);
+                const now = new Date();
+
+                if (now > expiryDate) {
+                    alert('❌ Votre licence a expiré. Veuillez contacter +22656626261 pour renouveler.');
+                    logout();
+                    return;
+                }
+
+                document.getElementById('activationPage').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'block';
+                document.getElementById('expiryDate').textContent = expiryDate.toLocaleDateString('fr-FR');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('activeSession');
+            document.getElementById('activationPage').style.display = 'flex';
+            document.getElementById('mainApp').style.display = 'none';
+            document.getElementById('licenseKey').value = '';
+            resetQuiz();
+        }
+
+        // Gestion du chargement des questions
+        function showLoadSection() {
+            document.getElementById('loadSection').style.display = 'block';
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'none';
+        }
+
+        function showUrlInput() {
+            document.getElementById('urlInputSection').style.display = 'block';
+            document.getElementById('fileInputSection').style.display = 'none';
+        }
+
+        function showFileInput() {
+            document.getElementById('urlInputSection').style.display = 'none';
+            document.getElementById('fileInputSection').style.display = 'block';
+        }
+
+        async function loadFromUrl() {
+            const url = document.getElementById('jsonUrl').value.trim();
+            
+            if (!url) {
+                alert('❌ Veuillez entrer une URL valide');
+                return;
+            }
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Erreur de chargement');
+                
+                const data = await response.json();
+                loadQuestions(data);
+            } catch (error) {
+                alert('❌ Erreur lors du chargement du fichier JSON. Vérifiez l\'URL.');
+                console.error(error);
+            }
+        }
+
+        function loadFromFile(event) {
+            const file = event.target.files[0];
+            
+            if (!file) return;
+
+            if (file.type !== 'application/json') {
+                alert('❌ Veuillez sélectionner un fichier JSON valide');
+                return;
+            }
+
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    loadQuestions(data);
+                } catch (error) {
+                    alert('❌ Erreur lors de la lecture du fichier JSON');
+                    console.error(error);
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+
+        function loadQuestions(data) {
+            if (!data.questions || !Array.isArray(data.questions)) {
+                alert('❌ Format JSON invalide. Le fichier doit contenir un tableau "questions"');
+                return;
+            }
+
+            questions = data.questions;
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            if (data.title) {
+                document.getElementById('quizTitle').textContent = data.title;
+            }
+
+            document.getElementById('loadSection').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('totalQuestions').textContent = questions.length;
+            
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                showResults();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            answered = false;
+            selectedAnswer = null;
+
+            document.getElementById('questionNumber').textContent = `Question ${currentQuestionIndex + 1}`;
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('questionText').textContent = question.question;
+            document.getElementById('currentScore').textContent = score;
+            
+            // Réinitialiser l'explication
+            document.getElementById('explanationBox').classList.remove('show');
+            
+            // Générer les options
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+
+            const letters = ['A', 'B', 'C', 'D'];
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.onclick = () => selectAnswer(index);
+                optionDiv.innerHTML = `
+                    <div class="option-letter">${letters[index]}</div>
+                    <div class="option-text">${option}</div>
+                `;
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            // Gérer les boutons
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+            document.getElementById('nextBtn').disabled = true;
+            document.getElementById('finishBtn').style.display = 'none';
+        }
+
+        function selectAnswer(index) {
+            if (answered) return;
+
+            selectedAnswer = index;
+            const question = questions[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+
+            // Marquer la sélection
+            options.forEach(opt => opt.classList.remove('selected'));
+            options[index].classList.add('selected');
+
+            // Vérifier la réponse
+            answered = true;
+            
+            if (index === question.correctAnswer) {
+                options[index].classList.add('correct');
+                score++;
+                document.getElementById('currentScore').textContent = score;
+            } else {
+                options[index].classList.add('incorrect');
+                options[question.correctAnswer].classList.add('correct');
+            }
+
+            // Désactiver toutes les options
+            options.forEach(opt => opt.classList.add('disabled'));
+
+            // Afficher l'explication
+            if (question.explanation) {
+                document.getElementById('explanationText').textContent = question.explanation;
+                document.getElementById('explanationBox').classList.add('show');
+            }
+
+            // Activer le bouton suivant ou terminer
+            if (currentQuestionIndex === questions.length - 1) {
+                document.getElementById('finishBtn').style.display = 'block';
+                document.getElementById('nextBtn').style.display = 'none';
+            } else {
+                document.getElementById('nextBtn').disabled = false;
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (answered && currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            }
+        }
+
+        function finishQuiz() {
+            showResults();
+        }
+
+        function showResults() {
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'block';
+
+            const correctCount = score;
+            const incorrectCount = questions.length - score;
+            const percentage = Math.round((score / questions.length) * 100);
+
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('finalTotal').textContent = questions.length;
+            document.getElementById('correctAnswers').textContent = correctCount;
+            document.getElementById('incorrectAnswers').textContent = incorrectCount;
+            document.getElementById('percentage').textContent = percentage + '%';
+
+            // Icône selon le score
+            let icon = '🎉';
+            if (percentage >= 80) icon = '🏆';
+            else if (percentage >= 60) icon = '👍';
+            else if (percentage >= 40) icon = '😊';
+            else icon = '📚';
+            
+            document.getElementById('resultsIcon').textContent = icon;
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById('resultsContainer').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+            displayQuestion();
+        }
+
+        function loadNewQuiz() {
+            resetQuiz();
+            showLoadSection();
+        }
+
+        function resetQuiz() {
+            questions = [];
+            currentQuestionIndex = 0;
+            score = 0;
+            selectedAnswer = null;
+            answered = false;
+            document.getElementById('jsonUrl').value = '';
+            document.getElementById('jsonFile').value = '';
+        }
+
+        // Vérifier la session au chargement
+        window.addEventListener('load', function() {
+            const session = localStorage.getItem('activeSession');
+            if (session) {
+                showMainApp();
+            }
+        });
+
+        // Permettre l'activation avec Entrée
+        document.getElementById('licenseKey').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                validateLicense();
+            }
+        });
+    </script>
+</body>
+</html>
