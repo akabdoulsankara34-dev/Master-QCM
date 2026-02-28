@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maëlys Market & Tontine - Rappels WhatsApp</title>
+    <style>
+        /* ========== STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #075E54, #128C7E);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .numero-depot {
+            background: #25D366;
+            color: white;
+            padding: 15px 30px;
+            margin-top: 20px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            border: 2px solid white;
+        }
+        
+        .whatsapp-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: #25D366;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .whatsapp-badge i {
+            font-size: 1.5em;
+        }
+        
+        .main-content {
+            padding: 30px;
+        }
+        
+        .form-section {
+            background: #f0f9f4;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 2px solid #25D366;
+        }
+        
+        .form-section h2 {
+            color: #075E54;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #25D366;
+            padding-bottom: 10px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            margin-bottom: 5px;
+            color: #075E54;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: #25D366;
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #075E54, #128C7E);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(7, 94, 84, 0.4);
+        }
+        
+        .btn-success {
+            background: #25D366;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .btn-warning {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        
+        .btn-info {
+            background: #17a2b8;
+            color: white;
+        }
+        
+        .btn-info:hover {
+            background: #138496;
+        }
+        
+        .btn-wa {
+            background: #25D366;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+        
+        .btn-wa:hover {
+            background: #128C7E;
+        }
+        
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1em;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #075E54, #128C7E);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:hover {
+            background-color: #f0f9f4;
+        }
+        
+        .status-solde {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .status-impaye {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-small {
+            padding: 8px 12px;
+            font-size: 0.85em;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-small:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-small-wa {
+            background: #25D366;
+            color: white;
+        }
+        
+        .motif-credit {
+            max-width: 200px;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #075E54, #128C7E);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card h3 {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        .stat-card p {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        
+        .stat-card small {
+            font-size: 0.85em;
+            opacity: 0.8;
+        }
+        
+        .progress-bar {
+            width: 100px;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #25D366, #128C7E);
+            transition: width 0.3s ease;
+        }
+        
+        .calculated-field {
+            background: #f0f9f4 !important;
+            border-color: #25D366 !important;
+            color: #075E54 !important;
+            font-weight: 600 !important;
+            cursor: not-allowed;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            z-index: 9999;
+            animation: slideInRight 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .notification-success {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+        
+        .notification-info {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+        }
+        
+        .notification-error {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close:hover {
+            color: #075E54;
+        }
+        
+        .wa-preview {
+            background: #f0f9f4;
+            border: 2px solid #25D366;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .wa-preview h4 {
+            color: #075E54;
+            margin-bottom: 10px;
+        }
+        
+        .wa-message {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            border-left: 4px solid #25D366;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .whatsapp-badge {
+                position: static;
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                margin: 20% auto;
+                padding: 20px;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .btn-small {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏪 Maëlys Market & Tontine</h1>
+            <p>Système de Rappels WhatsApp Automatiques</p>
+            <div class="numero-depot">
+                📞 Numéro de dépôt : <strong>75523259</strong>
+            </div>
+            <div class="whatsapp-badge">
+                <span>📱</span> WhatsApp Intégré
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <!-- Formulaire d'ajout avec calcul automatique -->
+            <div class="form-section">
+                <h2>➕ Ajouter un créancier</h2>
+                <form id="creancierForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Nom complet *</label>
+                            <input type="text" id="nom" placeholder="Ex: Diop Fatou" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Montant total (FCFA) *</label>
+                            <input type="number" id="montant" placeholder="Ex: 50000" oninput="calculerResteAuto()" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Montant versé (FCFA) *</label>
+                            <input type="number" id="verse" placeholder="Ex: 25000" oninput="calculerResteAuto()" value="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Reste à solder (FCFA)</label>
+                            <input type="number" id="reste" placeholder="Calculé automatiquement" readonly class="calculated-field">
+                        </div>
+                        <div class="form-group">
+                            <label>Numéro WhatsApp *</label>
+                            <input type="tel" id="whatsapp" placeholder="Ex: 771234567" required>
+                            <small style="color: #666;">Format: 77 123 45 67 ou 221771234567</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Motif du crédit *</label>
+                        <textarea id="motif" placeholder="Ex: Achat de tissus, crédit hebdomadaire..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">💾 Enregistrer le créancier</button>
+                </form>
+            </div>
+            
+            <!-- Barre de recherche -->
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="🔍 Rechercher un créancier...">
+                <button class="btn btn-secondary" onclick="searchCreanciers()">Rechercher</button>
+                <button class="btn btn-success" onclick="resetSearch()">Réinitialiser</button>
+            </div>
+            
+            <!-- Liste des créanciers -->
+            <h2>📋 Liste des créanciers</h2>
+            <div class="table-container">
+                <table id="creanciersTable">
+                    <thead>
+                        <tr>
+                            <th>Nom & Prénom</th>
+                            <th>Montant total</th>
+                            <th>Reste à solder</th>
+                            <th>Montant versé</th>
+                            <th>Motif du crédit</th>
+                            <th>WhatsApp</th>
+                            <th>Progression</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Statistiques -->
+            <div class="stats" id="stats"></div>
+            
+            <!-- Zone de test WhatsApp -->
+            <div class="wa-preview">
+                <h4>📱 Aperçu du message WhatsApp</h4>
+                <div id="waPreview" class="wa-message">
+                    Sélectionnez un créancier pour voir l'aperçu du message
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de modification -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>✏️ Modifier le créancier</h2>
+            <form id="editForm">
+                <input type="hidden" id="editId">
+                <input type="hidden" id="editIndex">
+                <div class="form-group">
+                    <label>Nom complet</label>
+                    <input type="text" id="editNom" required>
+                </div>
+                <div class="form-group">
+                    <label>Montant total (FCFA)</label>
+                    <input type="number" id="editMontant" oninput="calculerResteEditAuto()" required>
+                </div>
+                <div class="form-group">
+                    <label>Montant versé (FCFA)</label>
+                    <input type="number" id="editVerse" oninput="calculerResteEditAuto()" required>
+                </div>
+                <div class="form-group">
+                    <label>Reste à solder (FCFA)</label>
+                    <input type="number" id="editReste" readonly class="calculated-field">
+                </div>
+                <div class="form-group">
+                    <label>Numéro WhatsApp</label>
+                    <input type="tel" id="editWhatsapp" required>
+                </div>
+                <div class="form-group">
+                    <label>Motif du crédit</label>
+                    <textarea id="editMotif" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Mettre à jour</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal d'envoi groupé WhatsApp -->
+    <div id="whatsappGroupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeWAGroupModal()">&times;</span>
+            <h2>📱 Envoi groupé WhatsApp</h2>
+            <p>Sélectionnez les créanciers pour l'envoi groupé :</p>
+            <div id="groupSelection" style="max-height: 300px; overflow-y: auto; margin: 20px 0;">
+                <!-- Les cases à cocher seront insérées ici -->
+            </div>
+            <button class="btn btn-success" onclick="sendGroupWhatsApp()" style="width: 100%;">
+                📤 Envoyer à (0) personnes
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // MAËLYS MARKET & TONTINE - ENVOI WHATSAPP
+        // Version avec fonction d'envoi WhatsApp opérationnelle
+        // ============================================
+
+        // Initialisation
+        let creanciers = [];
+        let historiqueModifications = [];
+
+        // Chargement des données
+        function chargerDonnees() {
+            try {
+                const savedData = localStorage.getItem('maelys_creanciers_wa');
+                if (savedData) {
+                    creanciers = JSON.parse(savedData);
+                }
+            } catch (error) {
+                console.error('Erreur chargement:', error);
+                creanciers = [];
+            }
+        }
+
+        // Sauvegarde
+        function sauvegarderDonnees() {
+            try {
+                localStorage.setItem('maelys_creanciers_wa', JSON.stringify(creanciers));
+                return true;
+            } catch (error) {
+                showNotification('⚠️ Erreur de sauvegarde', 'error');
+                return false;
+            }
+        }
+
+        // Notification
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        // ===== FONCTION PRINCIPALE D'ENVOI WHATSAPP =====
+        function sendWhatsApp(numero, message) {
+            // Nettoyer le numéro de téléphone
+            let cleanNumero = numero.replace(/\s+/g, '').replace(/[+]/g, '').replace(/[-]/g, '');
+            
+            // Si le numéro ne commence pas par 226, l'ajouter
+            if (!cleanNumero.startsWith('226')) {
+                // Si le numéro commence par 0, remplacer par 221
+                if (cleanNumero.startsWith('0')) {
+                    cleanNumero = '226' + cleanNumero.substring(1);
+                } else {
+                    cleanNumero = '226' + cleanNumero;
+                }
+            }
+            
+            // Supprimer tous les caractères non numériques
+            cleanNumero = cleanNumero.replace(/\D/g, '');
+            
+            // Vérifier que le numéro a une longueur valide (11 chiffres pour 226 + 8 chiffres)
+            if (cleanNumero.length < 9) {
+                showNotification('❌ Numéro WhatsApp invalide', 'error');
+                return false;
+            }
+            
+            // Encoder le message pour l'URL
+            const messageEncode = encodeURIComponent(message);
+            
+            // Construire l'URL WhatsApp
+            const whatsappUrl = `https://wa.me/${cleanNumero}?text=${messageEncode}`;
+            
+            // Ouvrir dans un nouvel onglet
+            window.open(whatsappUrl, '_blank');
+            
+            showNotification(`📱 WhatsApp ouvert pour ${numero}`);
+            return true;
+        }
+
+        // Générer le message WhatsApp personnalisé
+        function generateWAMessage(creancier) {
+            const pourcentage = ((creancier.verse / creancier.montant) * 100).toFixed(1);
+            const resteFormatted = creancier.reste.toLocaleString();
+            const montantFormatted = creancier.montant.toLocaleString();
+            const verseFormatted = creancier.verse.toLocaleString();
+            
+            return `*🔔 MAËLYS MARKET & TONTINE - RAPPEL DE PAIEMENT*
+
+Bonjour *${creancier.nom}*,
+
+Je me permets de vous rappeler que vous avez un crédit en cours chez nous :
+
+📝 *Motif* : ${creancier.motif}
+💰 *Montant total* : ${montantFormatted} FCFA
+💵 *Déjà payé* : ${verseFormatted} FCFA (${pourcentage}%)
+⏳ *Reste à payer* : ${resteFormatted} FCFA
+
+📌 *Numéro de dépôt* : 75523259
+
+⬇️ *Comment payer* ?
+1. Rendez-vous dans un point Orange Money
+2. Faites un dépôt au *75523259*
+3. Indiquez votre nom et "Maëlys Market"
+
+Merci d'avoir fait confiance à Maëlys Market et Tontine ! 🙏`;
+        }
+
+        // Envoyer un rappel individuel
+        function sendRappel(index) {
+            const creancier = creanciers[index];
+            
+            // Générer le message
+            const message = generateWAMessage(creancier);
+            
+            // Afficher une prévisualisation
+            if (confirm(`📱 Envoyer un rappel WhatsApp à ${creancier.nom} ?\n\nAperçu du message :\n${message.substring(0, 100)}...`)) {
+                const envoye = sendWhatsApp(creancier.whatsapp, message);
+                
+                if (envoye) {
+                    // Incrémenter le compteur de notifications
+                    creancier.notificationsEnvoyees = (creancier.notificationsEnvoyees || 0) + 1;
+                    creancier.dernierRappel = new Date().toISOString();
+                    sauvegarderDonnees();
+                    displayCreanciers();
+                    
+                    // Mettre à jour l'aperçu
+                    updateWAPreview(creancier);
+                }
+            }
+        }
+
+        // Envoi groupé WhatsApp
+        function openGroupWAModal() {
+            const modal = document.getElementById('whatsappGroupModal');
+            const selectionDiv = document.getElementById('groupSelection');
+            
+            let html = '';
+            creanciers.forEach((c, index) => {
+                if (c.reste > 0) { // Seulement ceux qui doivent encore payer
+                    html += `
+                        <div style="margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                <input type="checkbox" class="wa-group-checkbox" data-index="${index}" value="${index}">
+                                <div>
+                                    <strong>${c.nom}</strong><br>
+                                    <small>Reste: ${c.reste.toLocaleString()} FCFA - ${c.whatsapp}</small>
+                                </div>
+                            </label>
+                        </div>
+                    `;
+                }
+            });
+            
+            selectionDiv.innerHTML = html || '<p>Aucun créancier avec reste à payer</p>';
+            modal.style.display = 'block';
+            
+            // Mettre à jour le compteur
+            updateGroupCount();
+        }
+
+        function updateGroupCount() {
+            const checkboxes = document.querySelectorAll('.wa-group-checkbox:checked');
+            const count = checkboxes.length;
+            const btn = document.querySelector('#whatsappGroupModal .btn');
+            if (btn) {
+                btn.textContent = `📤 Envoyer à (${count}) personne${count > 1 ? 's' : ''}`;
+            }
+        }
+
+        function sendGroupWhatsApp() {
+            const checkboxes = document.querySelectorAll('.wa-group-checkbox:checked');
+            
+            if (checkboxes.length === 0) {
+                showNotification('❌ Sélectionnez au moins une personne', 'error');
+                return;
+            }
+            
+            if (confirm(`Envoyer des rappels à ${checkboxes.length} personne(s) ?`)) {
+                checkboxes.forEach(cb => {
+                    const index = cb.value;
+                    const creancier = creanciers[index];
+                    const message = generateWAMessage(creancier);
+                    
+                    // Ouvrir WhatsApp pour chaque (avec délai pour éviter le blocage)
+                    setTimeout(() => {
+                        sendWhatsApp(creancier.whatsapp, message);
+                    }, 500 * index); // Délai de 0.5s entre chaque
+                    
+                    creancier.notificationsEnvoyees = (creancier.notificationsEnvoyees || 0) + 1;
+                });
+                
+                sauvegarderDonnees();
+                closeWAGroupModal();
+                showNotification(`✅ ${checkboxes.length} rappel(s) envoyé(s) !`, 'success');
+            }
+        }
+
+        function closeWAGroupModal() {
+            document.getElementById('whatsappGroupModal').style.display = 'none';
+        }
+
+        // Mettre à jour l'aperçu WhatsApp
+        function updateWAPreview(creancier) {
+            const previewDiv = document.getElementById('waPreview');
+            if (creancier) {
+                previewDiv.textContent = generateWAMessage(creancier);
+                previewDiv.style.whiteSpace = 'pre-wrap';
+            } else {
+                previewDiv.textContent = 'Sélectionnez un créancier pour voir l\'aperçu du message';
+            }
+        }
+
+        // Afficher les créanciers
+        function displayCreanciers(filteredCreanciers = null) {
+            const tableBody = document.getElementById('tableBody');
+            const dataToShow = filteredCreanciers || creanciers;
+            
+            if (!dataToShow || dataToShow.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 40px;">
+                    <div style="font-size: 1.2em; color: #666;">📭 Aucun créancier enregistré</div>
+                </td></tr>`;
+                updateStats();
+                return;
+            }
+            
+            tableBody.innerHTML = dataToShow.map((c, idx) => {
+                const originalIndex = creanciers.findIndex(crea => crea.id === c.id);
+                const pourcentage = ((c.verse / c.montant) * 100).toFixed(1);
+                const dateCreation = c.dateCreation ? new Date(c.dateCreation).toLocaleDateString('fr-FR') : '';
+                
+                return `
+                <tr onclick="updateWAPreview(creanciers[${originalIndex}])" style="cursor: pointer;">
+                    <td>
+                        <strong>${c.nom}</strong><br>
+                        <small>${dateCreation}</small>
+                    </td>
+                    <td>${c.montant.toLocaleString()} FCFA</td>
+                    <td class="${c.reste > 0 ? 'status-impaye' : 'status-solde'}">
+                        <strong>${c.reste.toLocaleString()} FCFA</strong>
+                    </td>
+                    <td>${c.verse.toLocaleString()} FCFA<br>
+                        <small>${pourcentage}% payé</small>
+                    </td>
+                    <td class="motif-credit">${c.motif}</td>
+                    <td>${c.whatsapp}</td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${pourcentage}%"></div>
+                        </div>
+                    </td>
+                    <td onclick="event.stopPropagation()">
+                        <div class="actions">
+                            <button class="btn-small btn-small-wa" onclick="sendRappel('${originalIndex}')" title="Envoyer rappel WhatsApp">
+                                📱 Rappel
+                            </button>
+                            <button class="btn-small btn-warning" onclick="openEditModal('${originalIndex}')" title="Modifier">
+                                ✏️
+                            </button>
+                            <button class="btn-small btn-primary" onclick="effectuerPaiement('${originalIndex}')" title="Paiement">
+                                💵
+                            </button>
+                            <button class="btn-small btn-danger" onclick="deleteCreancier('${originalIndex}')" title="Supprimer">
+                                🗑️
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `}).join('');
+            
+            updateStats();
+        }
+
+        // Calcul automatique
+        function calculerResteAuto() {
+            const montant = parseFloat(document.getElementById('montant').value) || 0;
+            const verse = parseFloat(document.getElementById('verse').value) || 0;
+            document.getElementById('reste').value = Math.max(0, montant - verse);
+        }
+
+        function calculerResteEditAuto() {
+            const montant = parseFloat(document.getElementById('editMontant').value) || 0;
+            const verse = parseFloat(document.getElementById('editVerse').value) || 0;
+            document.getElementById('editReste').value = Math.max(0, montant - verse);
+        }
+
+        // Ajouter un créancier
+        document.getElementById('creancierForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const montant = parseFloat(document.getElementById('montant').value);
+            const verse = parseFloat(document.getElementById('verse').value) || 0;
+            
+            const newCreancier = {
+                id: 'CRED-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5),
+                nom: document.getElementById('nom').value,
+                montant: montant,
+                verse: verse,
+                reste: Math.max(0, montant - verse),
+                whatsapp: document.getElementById('whatsapp').value,
+                motif: document.getElementById('motif').value,
+                dateCreation: new Date().toISOString(),
+                notificationsEnvoyees: 0
+            };
+            
+            creanciers.push(newCreancier);
+            sauvegarderDonnees();
+            this.reset();
+            document.getElementById('verse').value = '0';
+            document.getElementById('reste').value = '0';
+            displayCreanciers();
+            
+            showNotification('✅ Créancier ajouté !', 'success');
+        });
+
+        // Modification
+        function openEditModal(index) {
+            const c = creanciers[index];
+            document.getElementById('editIndex').value = index;
+            document.getElementById('editId').value = c.id;
+            document.getElementById('editNom').value = c.nom;
+            document.getElementById('editMontant').value = c.montant;
+            document.getElementById('editVerse').value = c.verse;
+            document.getElementById('editReste').value = c.reste;
+            document.getElementById('editWhatsapp').value = c.whatsapp;
+            document.getElementById('editMotif').value = c.motif;
+            
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const index = document.getElementById('editIndex').value;
+            const montant = parseFloat(document.getElementById('editMontant').value);
+            const verse = parseFloat(document.getElementById('editVerse').value);
+            
+            creanciers[index] = {
+                ...creanciers[index],
+                nom: document.getElementById('editNom').value,
+                montant: montant,
+                verse: verse,
+                reste: Math.max(0, montant - verse),
+                whatsapp: document.getElementById('editWhatsapp').value,
+                motif: document.getElementById('editMotif').value,
+                dateModification: new Date().toISOString()
+            };
+            
+            sauvegarderDonnees();
+            closeModal();
+            displayCreanciers();
+            showNotification('✅ Modifié !', 'success');
+        });
+
+        // Paiement
+        function effectuerPaiement(index) {
+            const creancier = creanciers[index];
+            
+            const montant = prompt(
+                `Paiement pour ${creancier.nom}\nReste: ${creancier.reste.toLocaleString()} FCFA\nMontant à payer:`,
+                creancier.reste
+            );
+            
+            if (montant) {
+                const paiement = parseFloat(montant);
+                if (!isNaN(paiement) && paiement > 0) {
+                    creancier.verse += paiement;
+                    creancier.reste = Math.max(0, creancier.montant - creancier.verse);
+                    sauvegarderDonnees();
+                    displayCreanciers();
+                    showNotification(`✅ Paiement de ${paiement.toLocaleString()} FCFA enregistré`);
+                }
+            }
+        }
+
+        // Suppression
+        function deleteCreancier(index) {
+            if (confirm('Supprimer ce créancier ?')) {
+                creanciers.splice(index, 1);
+                sauvegarderDonnees();
+                displayCreanciers();
+                showNotification('🗑️ Supprimé');
+            }
+        }
+
+        // Recherche
+        function searchCreanciers() {
+            const term = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = creanciers.filter(c => 
+                c.nom.toLowerCase().includes(term) ||
+                c.motif.toLowerCase().includes(term) ||
+                c.whatsapp.includes(term)
+            );
+            displayCreanciers(filtered);
+        }
+
+        function resetSearch() {
+            document.getElementById('searchInput').value = '';
+            displayCreanciers();
+        }
+
+        // Statistiques
+        function updateStats() {
+            const total = creanciers.length;
+            const montantTotal = creanciers.reduce((s, c) => s + c.montant, 0);
+            const resteTotal = creanciers.reduce((s, c) => s + c.reste, 0);
+            const verseTotal = creanciers.reduce((s, c) => s + c.verse, 0);
+            const actifs = creanciers.filter(c => c.reste > 0).length;
+            
+            document.getElementById('stats').innerHTML = `
+                <div class="stat-card">
+                    <h3>Total créanciers</h3>
+                    <p>${total}</p>
+                    <small>${actifs} actifs</small>
+                </div>
+                <div class="stat-card">
+                    <h3>Montant total</h3>
+                    <p>${montantTotal.toLocaleString()} FCFA</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Reste à solder</h3>
+                    <p>${resteTotal.toLocaleString()} FCFA</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Déjà payé</h3>
+                    <p>${verseTotal.toLocaleString()} FCFA</p>
+                </div>
+            `;
+            
+            // Ajouter les boutons d'action
+            const actionDiv = document.createElement('div');
+            actionDiv.style.cssText = 'display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap;';
+            actionDiv.innerHTML = `
+                <button class="btn btn-wa" onclick="openGroupWAModal()">📱 Envoi groupé WhatsApp</button>
+                <button class="btn btn-success" onclick="exportData()">📥 Exporter</button>
+                <button class="btn btn-primary" onclick="importData()">📤 Importer</button>
+            `;
+            document.getElementById('stats').appendChild(actionDiv);
+        }
+
+        // Export/Import
+        function exportData() {
+            const data = {
+                creanciers: creanciers,
+                date: new Date().toISOString(),
+                depot: '75523259'
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `maelys_creanciers_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            showNotification('📥 Données exportées');
+        }
+
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (data.creanciers) {
+                            creanciers = data.creanciers;
+                            sauvegarderDonnees();
+                            displayCreanciers();
+                            showNotification('✅ Données importées');
+                        }
+                    } catch (error) {
+                        showNotification('❌ Fichier invalide', 'error');
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+
+        // Écouteurs pour les checkboxes groupées
+        document.addEventListener('change', function(e) {
+            if (e.target.classList.contains('wa-group-checkbox')) {
+                updateGroupCount();
+            }
+        });
+
+        // Initialisation
+        chargerDonnees();
+        displayCreanciers();
+
+        // Ajout de la fonction de test WhatsApp
+        function testWhatsApp() {
+            if (creanciers.length > 0) {
+                sendRappel(0);
+            } else {
+                alert('Ajoutez d\'abord un créancier');
+            }
+        }
+    </script>
+</body>
+</html>

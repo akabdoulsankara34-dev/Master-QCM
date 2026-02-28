@@ -1,0 +1,71 @@
+/* Ajouter ces styles pour les calculs automatiques */
+.calculated-field {
+    background: #f0f9ff !important;
+    border-color: #667eea !important;
+    color: #333 !important;
+    font-weight: 600 !important;
+    cursor: not-allowed;
+}
+
+.calculated-field.negatif {
+    color: #dc3545 !important;
+    background: #fff5f5 !important;
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    z-index: 9999;
+    animation: slideInRight 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.notification-success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+}
+
+.notification-info {
+    background: linear-gradient(135deg, #17a2b8, #007bff);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.btn-info {
+    background: #17a2b8;
+    color: white;
+}
+
+.btn-info:hover {
+    background: #138496;
+}
+
+/* Indicateur de stockage */
+.storage-indicator {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    z-index: 100;
+}
+
+.storage-indicator.warning {
+    background: #dc3545;
+}
