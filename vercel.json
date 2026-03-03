@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "name": "integral-restaurant-borne",
+  "builds": [
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "headers": {
+        "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Permissions-Policy": "autoplay=*, fullscreen=*, microphone=()",
+        "Feature-Policy": "autoplay 'self'; fullscreen 'self'"
+      },
+      "dest": "/$1"
+    },
+    {
+      "src": "/",
+      "dest": "/index.html"
+    }
+  ]
+}
